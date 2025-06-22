@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyB...your_key_here",
+  authDomain: "cloud-attendance-tracker.firebaseapp.com",
+  databaseURL: "https://cloud-attendance-tracker.firebaseio.com",
+  projectId: "cloud-attendance-tracker",
+  storageBucket: "cloud-attendance-tracker.appspot.com",
+  messagingSenderId: "792669903693",
+  appId: "1:792669903693:web:cd74017f23e41a5eafb504"
 };
 
 firebase.initializeApp(firebaseConfig);
