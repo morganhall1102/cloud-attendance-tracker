@@ -1,20 +1,22 @@
-// Assumes Firebase is already initialized
+// Import Firebase Firestore
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../firebase/firebase_config.js"; // Adjust path if needed
 
-const db = firebase.firestore();
-// Simulated check-in function
-function checkInUser(userId, type) {
-  const timestamp = new Date();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-  db.collection("attendanceLogs").add({
-    userId: userId,
-    time: timestamp,
-    type: type
-  })
-  .then(() => {
-    console.log("User checked in:", userId, "Type:", type);
-  })
-  .catch((error) => {
-    console.error("Error checking in user:", error);
-  });
+// Save check-in/out info
+export async function checkInUser(userId, type) {
+  try {
+    await addDoc(collection(db, "attendanceLogs"), {
+      userId,
+      type,
+      time: serverTimestamp()
+    });
+    console.log(`✅ User checked in: ${userId}, Type: ${type}`);
+  } catch (error) {
+    console.error("❌ Error checking in user:", error);
+  }
 }
-
