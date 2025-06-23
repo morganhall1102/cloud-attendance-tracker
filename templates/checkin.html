@@ -1,49 +1,60 @@
-<!-- Firebase SDKs -->
-<script type="module">
-  // Import Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance Check-In</title>
+</head>
+<body>
+  <h1>Check-In / Check-Out</h1>
+  <p>User: <strong>John Doe</strong></p>
 
-  const firebaseConfig = {
-  apiKey: "AIzaSyBjLTLGX4RXtPK_wGeN5XnM3yambFjyqrc",
-  authDomain: "cloud-attendance-tracker.firebaseapp.com",
-  projectId: "cloud-attendance-tracker",
-  storageBucket: "cloud-attendance-tracker.firebasestorage.app",
-  messagingSenderId: "792669903693",
-  appId: "1:792669903693:web:cd74017f23e41a5eafb504"
-};
+  <button onclick="checkIn()">Check In</button>
+  <button onclick="checkOut()">Check Out</button>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  // Check-in function
-  window.checkIn = async function () {
-    try {
-      await addDoc(collection(db, "attendanceLogs"), {
-        userId: "John Doe",
-        type: "Check-In",
-        time: serverTimestamp()
-      });
-      alert("✅ Checked in!");
-    } catch (error) {
-      console.error("❌ Error checking in:", error);
-      alert("Error while checking in!");
-    }
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyBjLTLGX4RXtPK_wGeN5XnM3yambFjyqrc",
+      authDomain: "cloud-attendance-tracker.firebaseapp.com",
+      projectId: "cloud-attendance-tracker",
+      storageBucket: "cloud-attendance-tracker.firebasestorage.app",
+      messagingSenderId: "792669903693",
+      appId: "1:792669903693:web:cd74017f23e41a5eafb504"
+    };
 
-  // Check-out function
-  window.checkOut = async function () {
-    try {
-      await addDoc(collection(db, "attendanceLogs"), {
-        userId: "John Doe",
-        type: "Check-Out",
-        time: serverTimestamp()
-      });
-      alert("✅ Checked out!");
-    } catch (error) {
-      console.error("❌ Error checking out:", error);
-      alert("Error while checking out!");
-    }
-  };
-</script>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.checkIn = async function () {
+      try {
+        await addDoc(collection(db, "attendanceLogs"), {
+          userId: "John Doe",
+          type: "Check-In",
+          time: serverTimestamp()
+        });
+        alert("✅ Checked in!");
+      } catch (error) {
+        console.error("❌ Error checking in:", error);
+        alert("Error while checking in!");
+      }
+    };
+
+    window.checkOut = async function () {
+      try {
+        await addDoc(collection(db, "attendanceLogs"), {
+          userId: "John Doe",
+          type: "Check-Out",
+          time: serverTimestamp()
+        });
+        alert("✅ Checked out!");
+      } catch (error) {
+        console.error("❌ Error checking out:", error);
+        alert("Error while checking out!");
+      }
+    };
+  </script>
+</body>
+</html>
