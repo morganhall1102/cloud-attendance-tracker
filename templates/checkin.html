@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 gi<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +8,54 @@ gi<!DOCTYPE html>
 <body>
   <h1>Check-In / Check-Out</h1>
   <p>User: <strong>John Doe</strong></p>
+=======
+<!-- Firebase SDKs -->
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+>>>>>>> a5568df03a593b990bafa4cda80f1fde37122f9a
 
-  <button onclick="checkIn()">Check In</button>
-  <button onclick="checkOut()">Check Out</button>
+  const firebaseConfig = {
+  apiKey: "AIzaSyBjLTLGX4RXtPK_wGeN5XnM3yambFjyqrc",
+  authDomain: "cloud-attendance-tracker.firebaseapp.com",
+  projectId: "cloud-attendance-tracker",
+  storageBucket: "cloud-attendance-tracker.firebasestorage.app",
+  messagingSenderId: "792669903693",
+  appId: "1:792669903693:web:cd74017f23e41a5eafb504"
+};
 
-  <script>
-    function checkIn() {
-      const time = new Date().toLocaleTimeString();
-      alert("Checked in at: " + time);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Check-in function
+  window.checkIn = async function () {
+    try {
+      await addDoc(collection(db, "attendanceLogs"), {
+        userId: "John Doe",
+        type: "Check-In",
+        time: serverTimestamp()
+      });
+      alert("✅ Checked in!");
+    } catch (error) {
+      console.error("❌ Error checking in:", error);
+      alert("Error while checking in!");
     }
+  };
 
-    function checkOut() {
-      const time = new Date().toLocaleTimeString();
-      alert("Checked out at: " + time);
+  // Check-out function
+  window.checkOut = async function () {
+    try {
+      await addDoc(collection(db, "attendanceLogs"), {
+        userId: "John Doe",
+        type: "Check-Out",
+        time: serverTimestamp()
+      });
+      alert("✅ Checked out!");
+    } catch (error) {
+      console.error("❌ Error checking out:", error);
+      alert("Error while checking out!");
     }
-  </script>
-</body>
-</html>
+  };
+</script>
