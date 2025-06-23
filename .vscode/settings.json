@@ -1,0 +1,10 @@
+{
+  "liveServer.settings.ignoreFiles": [
+    "**/*.js",
+    "**/firebase/**",
+    "**/scripts/**",
+    "**/.git/**"
+  ],
+  "liveServer.settings.wait": 1000,
+  "liveServer.settings.fullReload": false
+}
