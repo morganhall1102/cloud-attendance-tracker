@@ -1,5 +1,4 @@
 // Import Firebase modules (via CDN)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -7,12 +6,8 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-// Import your Firebase config
-import { firebaseConfig } from "../firebase/firebase_config.js";
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Import Firestore instance
+import { db } from "../firebase/firebase_config.js";
 
 // Save check-in/out info
 export async function checkInUser(userId, type) {
