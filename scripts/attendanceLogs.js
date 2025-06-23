@@ -1,7 +1,15 @@
-// Import Firebase Firestore
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebase/firebase_config.js"; // Adjust path if needed
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+import { firebaseConfig } from "../firebase/firebase_config.js";
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
