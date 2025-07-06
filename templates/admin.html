@@ -5,50 +5,75 @@
   <title>Admin Dashboard</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
-      background-color: #f4f4f9;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #34495e;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    main {
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
     }
 
     h1 {
-      color: #2c3e50;
+      margin-top: 0;
+      font-weight: 500;
     }
 
-    .box {
-      border: 2px dashed #bbb;
-      background-color: #fff;
-      padding: 40px;
-      margin-top: 30px;
-      text-align: center;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      color: #666;
+    .card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .card ul {
+      padding-left: 20px;
+      line-height: 1.6;
     }
 
     .footer {
-      margin-top: 60px;
       text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <h1>📊 Admin Dashboard</h1>
+  <header>
+    <h1>📊 Admin Dashboard</h1>
+    <p>Monitoring attendance trends and insights</p>
+  </header>
 
-  <div class="box">
-    <p>This is a placeholder for admin insights.</p>
-    <p>In the future, this will display analytics like:</p>
-    <ul style="text-align: left; display: inline-block;">
-      <li>⏰ Frequent late check-ins</li>
-      <li>🚪 Early check-outs</li>
-      <li>📈 Attendance heatmaps</li>
-    </ul>
-  </div>
+  <main>
+    <div class="card">
+      <p>This placeholder will soon visualize insights such as:</p>
+      <ul>
+        <li>⏰ Frequent late check-ins</li>
+        <li>🚪 Early check-outs</li>
+        <li>📈 Attendance heatmaps</li>
+        <li>❗ Repeated no-shows or missing logs</li>
+      </ul>
+    </div>
+  </main>
 
   <div class="footer">
-   • Morgan Hall • Georgia Tech • 2025
+    • Morgan Hall • Georgia Tech • 2025
   </div>
+
   <script type="module" src="../scripts/patternDetection.js"></script>
 </body>
 </html>
