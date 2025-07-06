@@ -6,7 +6,9 @@
 </head>
 <body>
   <h1>Check-In / Check-Out</h1>
-  <p>User: <strong>Jane Doe</strong></p>
+  <label for="username">Enter your name:</label>
+  <input type="text" id="username" placeholder="e.g., Jane Doe">
+  <p>User: <strong id="displayUser">None</strong></p>
 
   <button onclick="checkIn()">Check In</button>
   <button onclick="checkOut()">Check Out</button>
@@ -14,49 +16,63 @@
   <!-- Firebase SDKs -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+ import { getFirestore, collection, setDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
   import { firebaseConfig } from "../firebase/firebase_config.js";
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  window.checkIn = async function () {
-    const now = new Date(); // ⏱️ actual date object
-    const formattedTime = now.toLocaleTimeString(); // ⌚ for user alert
+function getUserName() {
+  const name = document.getElementById("username").value.trim();
+  document.getElementById("displayUser").innerText = name || "None";
+  return name || "Anonymous";
+}
 
-    const isLate = now.getHours() > 9 || (now.getHours() === 9 && now.getMinutes() > 0); // 🚨 Smart alert logic
+window.checkIn = async function () {
+  const name = getUserName();
+  const now = new Date();
+  const formattedTime = now.toLocaleTimeString();
+  const dateStr = now.toISOString().split("T")[0];
+  const safeTimeStr = formattedTime.replace(/:/g, "-");
+  const docId = `${name.replace(/\s/g, "")}-${dateStr}-${safeTimeStr}`;
 
-    try {
-      await addDoc(collection(db, "attendanceLogs"), {
-        userId: "Jane Doe",
-        type: "Check-In",
-        time: serverTimestamp(),
-        isLate: isLate // ✅ stored in Firestore
-      });
+  const isLate = now.getHours() > 9 || (now.getHours() === 9 && now.getMinutes() > 0);
 
-      alert(`✅ Checked in at ${formattedTime}`);
-    } catch (error) {
-      console.error("❌ Error checking in:", error);
-      alert("Error while checking in!");
-    }
-  };
+  try {
+    await setDoc(doc(db, "attendanceLogs", docId), {
+      userId: name,
+      type: "Check-In",
+      time: serverTimestamp(),
+      isLate: isLate
+    });
+    alert(`✅ Checked in at ${formattedTime}`);
+  } catch (error) {
+    console.error("❌ Error checking in:", error);
+    alert("Error while checking in!");
+  }
+};
 
-  window.checkOut = async function () {
-    const time = new Date().toLocaleTimeString();
-    try {
-      await addDoc(collection(db, "attendanceLogs"), {
-        userId: "Jane Doe",
-        type: "Check-Out",
-        time: serverTimestamp()
-      });
+window.checkOut = async function () {
+  const name = getUserName();
+  const now = new Date();
+  const formattedTime = now.toLocaleTimeString();
+  const dateStr = now.toISOString().split("T")[0];
+  const safeTimeStr = formattedTime.replace(/:/g, "-");
+  const docId = `${name.replace(/\s/g, "")}-${dateStr}-${safeTimeStr}`;
 
-      alert(`✅ Checked out at ${time}`);
-    } catch (error) {
-      console.error("❌ Error checking out:", error);
-      alert("Error while checking out!");
-    }
-  };
+  try {
+    await setDoc(doc(db, "attendanceLogs", docId), {
+      userId: name,
+      type: "Check-Out",
+      time: serverTimestamp()
+    });
+    alert(`✅ Checked out at ${formattedTime}`);
+  } catch (error) {
+    console.error("❌ Error checking out:", error);
+    alert("Error while checking out!");
+  }
+};
 </script>
 </body>
 </html>
