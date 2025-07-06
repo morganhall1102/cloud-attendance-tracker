@@ -1,5 +1,13 @@
-// patternDetection.js
-// Placeholder logic for future attendance behavior analysis
+// scripts/patternDetection.js
+import { db } from "../firebase/firebase_config.js";
+import {
+  collection,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+// -------------------------
+// 🔍 Pattern Detection Stubs (Weeks 7–8 setup)
+// -------------------------
 
 /**
  * Detects users who are repeatedly late
@@ -26,3 +34,27 @@ export function detectOutliers(logs) {
   // TODO: Compare user behavior against average work time
   return []; // return potential anomalies
 }
+
+// -------------------------
+// ✅ Sample fetch + log summary
+// -------------------------
+
+async function analyzePatterns() {
+  const logsRef = collection(db, "attendanceLogs");
+  const snapshot = await getDocs(logsRef);
+  const logs = snapshot.docs.map(doc => doc.data());
+
+  const lateCounts = {};
+  logs.forEach(log => {
+    if (log.userId && log.type === "Check-In" && log.isLate) {
+      lateCounts[log.userId] = (lateCounts[log.userId] || 0) + 1;
+    }
+  });
+
+  console.log("🔍 Late Check-In Counts:", lateCounts);
+
+  // Eventually call detection stubs here
+  // e.g., detectChronicLateness(logs), detectMissingCheckOuts(logs)
+}
+
+analyzePatterns();
